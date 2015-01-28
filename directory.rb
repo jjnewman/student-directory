@@ -54,8 +54,8 @@ def print_header
 end
 
 def print_all(names)
-  names.each do |name|
-    print "#{name[:name]} (#{name[:cohort]} cohort)\n"
+  names.each_with_index do |name, index|
+    print "#{index + 1} #{name[:name]} (#{name[:cohort]} cohort)\n"
   end
 end
   
