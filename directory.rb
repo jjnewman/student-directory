@@ -37,12 +37,19 @@ def input_students
   name = gets.chomp
   #while the name is not empty, repeat this code
   while !name.empty? do
+    print "Cohort month (first three letters): "
+    cohort = gets.chomp.upcase
+    until ["JAN", "FEB", "MAR", "APR","MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"].include? cohort
+      print "Please enter a valid month (first three letters): "
+      cohort = gets.chomp.upcase
+      end
+      cohort = cohort.to_s
     print "Age of #{name}: "
     age = gets.slice!(0..-2)
     print "Height (cm) of #{name}: "
     height = gets.chomp
     #add the student hash to the array
-    students << {:name => name, :age => age, :height => height, :cohort => :February}
+    students << {:name => name, :age => age, :height => height, :cohort => cohort}
     if students.length == 1
       print "Now we have 1 student\n"
     else
