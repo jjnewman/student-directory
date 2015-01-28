@@ -55,8 +55,11 @@ end
 
 def print_all(names)
   names.each_with_index do |name, index|
-    print "#{index + 1} #{name[:name]} (#{name[:cohort]} cohort)\n"
-  end
+    #to add extra argument in method for letter selection
+    if name[:name].chr == "A"
+      print "#{index + 1} #{name[:name]} (#{name[:cohort]} cohort)\n"
+      end  
+end
 end
   
 def print_footer(names)
