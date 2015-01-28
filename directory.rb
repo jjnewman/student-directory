@@ -56,7 +56,9 @@ end
 def print_all(names)
   names.each_with_index do |name, index|
     #to add extra argument in method for letter selection
-    if name[:name].chr == "A"
+    #if name[:name].chr == "A"
+    #to add extra argument in method for length selection
+    if name[:name].length < 12
       print "#{index + 1} #{name[:name]} (#{name[:cohort]} cohort)\n"
       end  
 end
