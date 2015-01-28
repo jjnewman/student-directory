@@ -1,3 +1,4 @@
+#first we print the list of students
 puts "The students of my cohort at Makers Academy"
 puts "-------------"
 puts "Christopher Ward"
@@ -27,6 +28,7 @@ puts "Phil Brockwell"
 puts "Gabe"
 puts "Kate Beavis"
 puts "Louise"
+#finally we print the total
 print "Overall, we have "
 print 27
 puts " great students"
