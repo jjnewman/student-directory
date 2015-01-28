@@ -30,12 +30,12 @@ students = [
 ]
 
 def input_students
-  print "Please enter the details of the students\n"
+  print "Please enter the name of the first student, or press return to exit\n"
   #print "To finish, just hit return twice\n"
   #create an empty array
   students = []
   #gets the first name
-  print "First student name: "
+  #print "First student name: "
   name = gets.chomp
   #while the name is not empty, repeat this code
   while !name.empty? do
@@ -45,8 +45,13 @@ def input_students
     height = gets.chomp
     #add the student hash to the array
     students << {:name => name, :age => age, :height => height, :cohort => :February}
+    if students.length == 1
+      print "Now we have 1 student\n"
+    else
     print "Now we have #{students.length} students\n"
-    #get another name from the user
+    end
+      #get another name from the user
+    print "\n"
     print "Please enter the next name (or return to finish)\n"
     name = gets.chomp
   end
@@ -55,16 +60,21 @@ def input_students
 end
 
 def print_header
-  print "The students of my cohort at Makers Academy\n".ljust(20)
+  print "\n"
+  print "The students of my cohort at Makers Academy (filtered as applicable)\n".ljust(20)
   print "-------------\n".ljust(20)
 end
 
 def print_all(names)
+  if names.length == 0
+    return
+  else
+  
   puts "Filter by letter? (Enter letter or press return for no filtering)"
-    letter = gets.chomp
+    letter = gets.chomp.capitalize!
   puts "Filter by name length? (Enter length or press return for no filtering)"
     name_length = gets.chomp.to_i
-    
+  
   print_header
   #to be refactored (while/unless?)!! and input validation (capitalise)  
     names.each_with_index do |name, index|
@@ -77,13 +87,18 @@ def print_all(names)
       elsif name[:name].length < name_length
         print "#{index + 1} #{name[:name]}, age: #{name[:age]}, height: #{name[:height]} (#{name[:cohort]} cohort)\n".ljust(20)
 
-end  
+      end  
     end
-#end
+end
 end
   
 def print_footer(names)
-  print "\nOverall, we have #{names.length} great students\n".ljust(20)
+  print "\n"
+  if names.length > 1 
+  print "Overall, we have #{names.length} great students\n".ljust(20)
+  elsif names.length == 1
+  print "Overall, we have 1 great student\n".ljust(20)
+  end
 end
 
 
