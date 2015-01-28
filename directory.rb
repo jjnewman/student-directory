@@ -38,10 +38,15 @@ def input_students
   name = gets.chomp
   #while the name is not empty, repeat this code
   while !name.empty? do
+    print "Age of #{name}:"
+    age = gets.chomp
+    print "Height (cm) of #{name}:"
+    height = gets.chomp
     #add the student hash to the array
-    students << {:name => name, :cohort => :February}
+    students << {:name => name, :age => age, :height => height, :cohort => :February}
     print "Now we have #{students.length} students\n"
     #get another name from the user
+    print "Please enter the next name (or return to finish)\n"
     name = gets.chomp
   end
   return students
@@ -60,17 +65,18 @@ def print_all(names)
     name_length = gets.chomp.to_i
     
   print_header
-  #to be refactored!!  
+  #to be refactored (while/unless?)!! and input validation (capitalise)  
     names.each_with_index do |name, index|
       if letter.empty? && name_length == 0
-      print "#{index + 1} #{name[:name]} (#{name[:cohort]} cohort)\n"
+        print "#{index + 1} #{name[:name]}, age: #{name[:age]}, height: #{name    [:height]} (#{name[:cohort]} cohort)\n"
       elsif name[:name].chr == letter && name[:name].length < name_length
-      print "#{index + 1} #{name[:name]} (#{name[:cohort]} cohort)\n"
+        print "#{index + 1} #{name[:name]}, age: #{name[:age]}, height: #{name[:height]} (#{name[:cohort]} cohort)\n"
       elsif name[:name].chr == letter
-      print "#{index + 1} #{name[:name]} (#{name[:cohort]} cohort)\n"
+        print "#{index + 1} #{name[:name]}, age: #{name[:age]}, height: #{name[:height]} (#{name[:cohort]} cohort)\n"
       elsif name[:name].length < name_length
-      print "#{index + 1} #{name[:name]} (#{name[:cohort]} cohort)\n"   
-      end  
+        print "#{index + 1} #{name[:name]}, age: #{name[:age]}, height: #{name[:height]} (#{name[:cohort]} cohort)\n"
+
+end  
     end
 #end
 end
