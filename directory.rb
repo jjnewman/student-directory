@@ -54,22 +54,34 @@ def print_header
 end
 
 def print_all(names)
-  names.each_with_index do |name, index|
-    #to add extra argument in method for letter selection
-    #if name[:name].chr == "A"
-    #to add extra argument in method for length selection
-    if name[:name].length < 12
+  puts "Filter by letter? (Enter letter or press return for no filtering)"
+    letter = gets.chomp
+  puts "Filter by name length? (Enter length or press return for no filtering)"
+    name_length = gets.chomp.to_i
+    
+  print_header
+  #to be refactored!!  
+    names.each_with_index do |name, index|
+      if letter.empty? && name_length == 0
       print "#{index + 1} #{name[:name]} (#{name[:cohort]} cohort)\n"
+      elsif name[:name].chr == letter && name[:name].length < name_length
+      print "#{index + 1} #{name[:name]} (#{name[:cohort]} cohort)\n"
+      elsif name[:name].chr == letter
+      print "#{index + 1} #{name[:name]} (#{name[:cohort]} cohort)\n"
+      elsif name[:name].length < name_length
+      print "#{index + 1} #{name[:name]} (#{name[:cohort]} cohort)\n"   
       end  
-end
+    end
+#end
 end
   
 def print_footer(names)
   print "Overall, we have #{names.length} great students\n"
 end
 
+
 students = input_students
-print_header
+#print_header
 print_all(students)
 print_footer(students)
   
