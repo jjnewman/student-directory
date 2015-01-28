@@ -27,3 +27,6 @@ puts "Phil Brockwell"
 puts "Gabe"
 puts "Kate Beavis"
 puts "Louise"
+print "Overall, we have "
+print 27
+puts " great students"
