@@ -30,17 +30,18 @@ students = [
 ]
 
 def input_students
-  print "Please enter the names of the students\n"
-  print "To finish, just hit return twice\n"
+  print "Please enter the details of the students\n"
+  #print "To finish, just hit return twice\n"
   #create an empty array
   students = []
   #gets the first name
+  print "First student name: "
   name = gets.chomp
   #while the name is not empty, repeat this code
   while !name.empty? do
-    print "Age of #{name}:"
+    print "Age of #{name}: "
     age = gets.chomp
-    print "Height (cm) of #{name}:"
+    print "Height (cm) of #{name}: "
     height = gets.chomp
     #add the student hash to the array
     students << {:name => name, :age => age, :height => height, :cohort => :February}
@@ -54,8 +55,8 @@ def input_students
 end
 
 def print_header
-  print "The students of my cohort at Makers Academy\n"
-  print "-------------\n"
+  print "The students of my cohort at Makers Academy\n".ljust(20)
+  print "-------------\n".ljust(20)
 end
 
 def print_all(names)
@@ -68,13 +69,13 @@ def print_all(names)
   #to be refactored (while/unless?)!! and input validation (capitalise)  
     names.each_with_index do |name, index|
       if letter.empty? && name_length == 0
-        print "#{index + 1} #{name[:name]}, age: #{name[:age]}, height: #{name    [:height]} (#{name[:cohort]} cohort)\n"
+        print "#{index + 1} #{name[:name]}, age: #{name[:age]}, height: #{name    [:height]} (#{name[:cohort]} cohort)\n".ljust(20)
       elsif name[:name].chr == letter && name[:name].length < name_length
-        print "#{index + 1} #{name[:name]}, age: #{name[:age]}, height: #{name[:height]} (#{name[:cohort]} cohort)\n"
+        print "#{index + 1} #{name[:name]}, age: #{name[:age]}, height: #{name[:height]} (#{name[:cohort]} cohort)\n".ljust(20)
       elsif name[:name].chr == letter
-        print "#{index + 1} #{name[:name]}, age: #{name[:age]}, height: #{name[:height]} (#{name[:cohort]} cohort)\n"
+        print "#{index + 1} #{name[:name]}, age: #{name[:age]}, height: #{name[:height]} (#{name[:cohort]} cohort)\n".ljust(20)
       elsif name[:name].length < name_length
-        print "#{index + 1} #{name[:name]}, age: #{name[:age]}, height: #{name[:height]} (#{name[:cohort]} cohort)\n"
+        print "#{index + 1} #{name[:name]}, age: #{name[:age]}, height: #{name[:height]} (#{name[:cohort]} cohort)\n".ljust(20)
 
 end  
     end
@@ -82,7 +83,7 @@ end
 end
   
 def print_footer(names)
-  print "Overall, we have #{names.length} great students\n"
+  print "\nOverall, we have #{names.length} great students\n".ljust(20)
 end
 
 
