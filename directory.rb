@@ -31,16 +31,14 @@ students = [
 
 def input_students
   print "Please enter the name of the first student, or press return to exit\n"
-  #print "To finish, just hit return twice\n"
   #create an empty array
   students = []
   #gets the first name
-  #print "First student name: "
   name = gets.chomp
   #while the name is not empty, repeat this code
   while !name.empty? do
     print "Age of #{name}: "
-    age = gets.chomp
+    age = gets.slice!(0..-2)
     print "Height (cm) of #{name}: "
     height = gets.chomp
     #add the student hash to the array
@@ -71,7 +69,7 @@ def print_all(names)
   else
   
   puts "Filter by letter? (Enter letter or press return for no filtering)"
-    letter = gets.chomp.capitalize!
+    letter = gets.chomp
   puts "Filter by name length? (Enter length or press return for no filtering)"
     name_length = gets.chomp.to_i
   
