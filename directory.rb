@@ -77,24 +77,21 @@ def print_all
     exit
   else
     #filter
-    cohorts = []
-    @students.each do |name|
-      cohorts << name[:cohort]
-    end
-    frequency = 0
-    cohorts.each do |month|
-      until frequency >1
+    print_by_cohort    
+  end    
+end
+
+def print_by_cohort  
+    months = []    
+    @students.each{|name| months << name[:cohort]}     
+    months = months.uniq  
+  
+    months.each do |month|
       print "#{month} cohort \n"
-            @students.each_with_index do |name, index|             
-            if name[:cohort] == month.to_s  
-            print "#{index + 1} #{name[:name]}, age: #{name[:age]}, height: #{name[:height]} \n"
-            end
-    frequency += 1
-  end
+      @students.select {|name| name[:cohort] == month.to_s}.each_with_index do |name, index|             
+           print "#{index + 1} #{name[:name]}, age: #{name[:age]}, height: #{name[:height]} \n"     
+           end  
     end
-end    
-  end
-  print_footer
 end
 
 def print_header
