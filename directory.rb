@@ -29,40 +29,47 @@ students = [
   {:name => "Louise", :cohort => :February}
 ]
 
+@students = []
+
 def input_students
   print "Please enter the name of the first student, or press return to exit\n"
-  #create an empty array
-  students = []
-  #gets the first name
-  name = gets.chomp
-  #while the name is not empty, repeat this code
-  while !name.empty? do
-    print "Cohort month (first three letters): "
-    cohort = gets.chomp.upcase
-    until ["JAN", "FEB", "MAR", "APR","MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"].include? cohort
-      print "Please enter a valid month (first three letters): "
-      cohort = gets.chomp.upcase
-      end
-      cohort = cohort.to_s
-    print "Age of #{name}: "
-    age = gets.slice!(0..-2)
-    print "Height (cm) of #{name}: "
-    height = gets.chomp
-    #add the student hash to the array
-    students << {:name => name, :age => age, :height => height, :cohort => cohort}
-    if students.length == 1
-      print "Now we have 1 student\n"
-    else
-    print "Now we have #{students.length} students\n"
-    end
-      #get another name from the user
-    print "\n"
-    print "Please enter the next name (or return to finish)\n"
-    name = gets.chomp
+  @name = gets.chomp
+  while !@name.empty? do
+    get_details   
+    student_array_add
   end
-  return students
-  #students
+  return @students
 end
+
+def get_details
+    print "Cohort month (first three letters): "
+    get_cohort_month
+    print "Age of #{@name}: "
+    @age = gets.slice!(0..-2)
+    print "Height (cm) of #{@name}: "
+    @height = gets.chomp
+end
+
+def get_cohort_month
+      @cohort = gets.chomp.upcase
+      until ["JAN", "FEB", "MAR", "APR","MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"].include? @cohort
+      print "Please enter a valid month (first three letters): "
+      @cohort = gets.chomp.upcase
+      end
+      @cohort = @cohort.to_s
+end
+
+def student_array_add
+    @students << {:name => @name, :age => @age, :height => @height, :cohort => @cohort}
+    if @students.length == 1
+      print "Now we have 1 student\n\n"
+    else
+    print "Now we have #{@students.length} students\n\n"
+    end
+    print "Please enter the next name (or return to finish)\n"
+    @name = gets.chomp
+end
+
 
 def print_header
   print "\n"
@@ -70,9 +77,9 @@ def print_header
   print "-------------\n".ljust(20)
 end
 
-def print_all(names)
-  if names.length == 0
-    return
+def print_all
+  if @students.length == 0
+    exit
   else
   
   puts "Filter by letter? (Enter letter or press return for no filtering)"
@@ -82,9 +89,9 @@ def print_all(names)
   
   print_header
   #to be refactored (while/unless?)!! and input validation (capitalise)  
-    names.each_with_index do |name, index|
+    @students.each_with_index do |name, index|
       if letter.empty? && name_length == 0
-        print "#{index + 1} #{name[:name]}, age: #{name[:age]}, height: #{name    [:height]} (#{name[:cohort]} cohort)\n".ljust(20)
+        print "#{index + 1} #{name[:name]}, age: #{name[:age]}, height: #{name[:height]} (#{name[:cohort]} cohort)\n".ljust(20)
       elsif name[:name].chr == letter && name[:name].length < name_length
         print "#{index + 1} #{name[:name]}, age: #{name[:age]}, height: #{name[:height]} (#{name[:cohort]} cohort)\n".ljust(20)
       elsif name[:name].chr == letter
@@ -97,18 +104,18 @@ def print_all(names)
 end
 end
   
-def print_footer(names)
+def print_footer
   print "\n"
-  if names.length > 1 
-  print "Overall, we have #{names.length} great students\n".ljust(20)
-  elsif names.length == 1
+  if @students.length > 1 
+  print "Overall, we have #{@students.length} great students\n".ljust(20)
+  elsif @students.length == 1
   print "Overall, we have 1 great student\n".ljust(20)
   end
 end
 
 
-students = input_students
+input_students
 #print_header
-print_all(students)
-print_footer(students)
+print_all
+print_footer
   
