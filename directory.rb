@@ -38,11 +38,11 @@ def input_students
     get_details   
     student_array_add
   end
-  return @students
+  @students
+  print_all
 end
 
 def get_details
-    print "Cohort month (first three letters): "
     get_cohort_month
     print "Age of #{@name}: "
     @age = gets.slice!(0..-2)
@@ -51,18 +51,19 @@ def get_details
 end
 
 def get_cohort_month
-      @cohort = gets.chomp.upcase
-      until ["JAN", "FEB", "MAR", "APR","MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"].include? @cohort
-      print "Please enter a valid month (first three letters): "
-      @cohort = gets.chomp.upcase
-      end
-      @cohort = @cohort.to_s
+    print "Cohort month (first three letters): "
+    @cohort = gets.chomp.upcase
+    until ["JAN", "FEB", "MAR", "APR","MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"].include? @cohort
+    print "Please enter a valid month (first three letters): "
+    @cohort = gets.chomp.upcase
+    end
+    @cohort = @cohort.to_s
 end
 
 def student_array_add
     @students << {:name => @name, :age => @age, :height => @height, :cohort => @cohort}
     if @students.length == 1
-      print "Now we have 1 student\n\n"
+    print "Now we have 1 student\n\n"
     else
     print "Now we have #{@students.length} students\n\n"
     end
@@ -70,18 +71,56 @@ def student_array_add
     @name = gets.chomp
 end
 
-
-def print_header
-  print "\n"
-  print "The students of my cohort at Makers Academy (filtered as applicable)\n".ljust(20)
-  print "-------------\n".ljust(20)
-end
-
 def print_all
+  print_header
   if @students.length == 0
     exit
   else
+    #filter
+    cohorts = []
+    @students.each do |name|
+      cohorts << name[:cohort]
+    end
+    frequency = 0
+    cohorts.each do |month|
+      until frequency >1
+      print "#{month} cohort \n"
+            @students.each_with_index do |name, index|             
+            if name[:cohort] == month.to_s  
+            print "#{index + 1} #{name[:name]}, age: #{name[:age]}, height: #{name[:height]} \n"
+            end
+    frequency += 1
+  end
+    end
+end    
+  end
+  print_footer
+end
+
+def print_header
+    print "\n"
+    print "The students of my cohort at Makers Academy (filtered as applicable)\n"
+    print "-------------\n"
+end
+
+def print_footer
+  print "\n"
+  if @students.length > 1 
+  print "Overall, we have #{@students.length} great students\n"
+  elsif @students.length == 1
+  print "Overall, we have 1 great student\n"
+  end
+end
+
+
+input_students
+#print_header
+#print_all
+#print_footer
   
+
+
+def filter 
   puts "Filter by letter? (Enter letter or press return for no filtering)"
     letter = gets.chomp
   puts "Filter by name length? (Enter length or press return for no filtering)"
@@ -90,6 +129,7 @@ def print_all
   print_header
   #to be refactored (while/unless?)!! and input validation (capitalise)  
     @students.each_with_index do |name, index|
+     
       if letter.empty? && name_length == 0
         print "#{index + 1} #{name[:name]}, age: #{name[:age]}, height: #{name[:height]} (#{name[:cohort]} cohort)\n".ljust(20)
       elsif name[:name].chr == letter && name[:name].length < name_length
@@ -102,20 +142,3 @@ def print_all
       end  
     end
 end
-end
-  
-def print_footer
-  print "\n"
-  if @students.length > 1 
-  print "Overall, we have #{@students.length} great students\n".ljust(20)
-  elsif @students.length == 1
-  print "Overall, we have 1 great student\n".ljust(20)
-  end
-end
-
-
-input_students
-#print_header
-print_all
-print_footer
-  
