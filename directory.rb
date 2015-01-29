@@ -30,6 +30,7 @@ students = [
 ]
 
 @students = []
+@abbrev_month_array = ["JAN", "FEB", "MAR", "APR","MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"]
 
 def input_students
   print "Please enter the name of the first student, or press return to exit\n"
@@ -38,7 +39,6 @@ def input_students
     get_details   
     student_array_add
   end
-  @students
   filter_questions
 end
 
@@ -53,20 +53,16 @@ end
 
 def get_cohort_month
     @cohort = gets.chomp.upcase
-    until ["JAN", "FEB", "MAR", "APR","MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"].include? @cohort
-    print "Please enter a valid month (first three letters): "
-    @cohort = gets.chomp.upcase
+    until @abbrev_month_array.include? @cohort
+      print "Please enter a valid month (first three letters): "
+      @cohort = gets.chomp.upcase
     end
     @cohort = @cohort.to_s
 end
 
 def student_array_add
     @students << {:name => @name, :age => @age, :height => @height, :cohort => @cohort}
-    if @students.length == 1
-    print "Now we have 1 student\n\n"
-    else
-    print "Now we have #{@students.length} students\n\n"
-    end
+    print @students.length == 1? "Now we have 1 student\n\n" : "Now we have #{@students.length} students\n\n"
     print "Please enter the next name (or return to finish)\n"
     @name = gets.chomp
 end
@@ -82,12 +78,12 @@ end
 def filtering
     @students.each_with_index do |name, index|
       if @first_letter.empty? && @name_length == 0
-        print_all
+        @students
       elsif !@first_letter.empty? && @name_length > 1
         @students = @students.select.each{|name| name[:name].chr == @first_letter} && @students.select.each{|name| name[:name].length < @name_length}
       elsif !@first_letter.empty?  
         @students = @students.select.each{|name| name[:name].chr == @first_letter}
-      else @students = @students.select.each{|name| name[:name].length < @name_length} 
+      elsif @students = @students.select.each{|name| name[:name].length < @name_length} 
       end  
     end
     print_all
@@ -110,12 +106,12 @@ def print_header
 end
 
 def print_by_cohort  
-    months = []    
+  require Time  
+  months = []    
     @students.each{|name| months << name[:cohort]}     
     months = months.uniq  
-  
-    months.each do |month|
-      print "#{month} cohort \n"
+      months.each do |month|
+        print "#{month} cohort \n"
       @students.select {|name| name[:cohort] == month.to_s}.each_with_index do |name, index|             
            print "#{index + 1} #{name[:name]}, age: #{name[:age]}, height: #{name[:height]} \n"     
            end  
@@ -123,12 +119,7 @@ def print_by_cohort
 end
 
 def print_footer
-  print "\n"
-  if @students.length > 1 
-  print "Overall, we have #{@students.length} great students\n"
-  elsif @students.length == 1
-  print "Overall, we have 1 great student\n"
-  end
+  print @students.length > 1? "\nOverall, we have #{@students.length} great students\n" : "\nOverall, we have 1 great student\n"
 end
 
 input_students
